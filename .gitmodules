@@ -1,0 +1,6 @@
+[submodule "BE-Java-mvn-spring-boot"]
+	path = BE-Java-mvn-spring-boot
+	url = https://github.com/xnors32/BE-Java-mvn-spring-boot.git
+[submodule "frontend-baru"]
+	path = frontend-baru
+	url = https://github.com/xnors32/frontend-baru.git
