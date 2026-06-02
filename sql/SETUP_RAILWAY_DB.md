@@ -1,17 +1,17 @@
-# Setup Database Railway (PostgreSQL)
+# Setup Database Railway (MySQL)
 
 ## 1. Buat Database di Railway
 
 1. Buka [railway.app](https://railway.app) dan login
-2. Klik **New Project** → **Provision PostgreSQL**
+2. Klik **New Project** → **Provision MySQL**
 3. Tunggu sampai database siap
 
-## 2. Dapatkan Connection String
+## 2. Dapatkan Credentials
 
-Di dashboard Railway, buka tab **Connect** → salin **Postgres Connection String**:
+Di dashboard Railway, buka tab **Connect** → salin **MySQL Connection String**:
 
 ```
-postgresql://user:pass@host:port/railway
+mysql://user:pass@host:port/railway
 ```
 
 ## 3. Konfigurasi di Backend (Spring Boot)
@@ -21,27 +21,27 @@ Buka `src/main/resources/application.yml`, sesuaikan:
 ```yaml
 spring:
   datasource:
-    url: jdbc:postgresql://host:port/railway?sslmode=require
+    url: jdbc:mysql://host:port/railway?useSSL=true&serverTimezone=Asia/Jakarta
     username: your_user
     password: your_password
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: validate
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.MySQLDialect
 ```
 
 ## 4. Jalankan SQL
 
 ```bash
-psql "postgresql://user:pass@host:port/railway" -f sql/05_setup_railway.sql
+mysql -h host -u your_user -p railway < sql/05_setup_railway.sql
 ```
 
 ## 5. Verifikasi
 
 ```sql
-SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+SHOW TABLES;
 ```
